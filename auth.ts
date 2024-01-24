@@ -10,6 +10,14 @@ export const {
   signIn,
   signOut,
 } = NextAuth({
+  events: {
+    async linkAccount({ user }) {
+      await prismadb.user.update({
+        where: { id: user.id },
+        data: { emailVerified: new Date() },
+      });
+    },
+  },
   callbacks: {
     async session({ token, session }) {
       if (session.user && token.sub) {
