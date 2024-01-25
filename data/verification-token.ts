@@ -5,9 +5,9 @@ export const getVerificationTokenByToken = async (token: string) => {
     const verificationToken = await prismadb.verificationToken.findUnique({
       where: { token },
     });
-
     return verificationToken;
-  } catch {
+  } catch (error) {
+    console.log(error);
     return false;
   }
 };
