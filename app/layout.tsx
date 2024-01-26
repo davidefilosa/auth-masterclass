@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { SessionProvider } from "next-auth/react";
+import { Toaster } from "@/components/ui/sonner";
 
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600"],
@@ -18,8 +20,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={poppins.className}>{children}</body>
-    </html>
+    <SessionProvider>
+      <html lang="en">
+        <body className={poppins.className}>
+          {children}
+          <Toaster />
+        </body>
+      </html>
+    </SessionProvider>
   );
 }
